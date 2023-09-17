@@ -11,17 +11,22 @@ from rockstar import RockStar
 # Устанавливаем кодировку вывода для терминала
 sys.stdout.reconfigure(encoding='utf-8')
 
-
 # Функция для создания временного файла
 def create_temp_file(file_name):
     with open(file_name, "w") as file:
         file.write("")  # Создаем пустой файл
 
-
 # Функция для выполнения обратного отсчета
 def countdown_timer(seconds):
     for i in tqdm(range(seconds)):
         time.sleep(1)
+
+# Имя файла для коммита
+commit_filename = "changes.txt"
+
+# Создаем временный файл с изменениями
+with open(commit_filename, "w") as commit_file:
+    commit_file.write("Изменения")
 
 
 # Функция для проверки изменений на GitHub
@@ -33,6 +38,21 @@ def check_for_changes(repo):
         else:
             print("Новых изменений на GitHub не замечено.")
         time.sleep(60)
+
+# Функция для создания RockStar программы
+def create_rockstar_program():
+    rock_program = RockStar()
+    rock_program.make_me_a_program()
+    rock_program_code = rock_program.code
+
+    print("Генерируется RockStar программа...")
+    # Генерируем случайное имя файла для RockStar программы
+    file_name = f"rockstar_program_{random.randint(1, 1000)}.rock"
+    # Создаем или открываем файл для записи RockStar программы
+    with open(file_name, "w") as rock_file:
+        rock_file.write(rock_program_code)
+
+    print(f"RockStar программа сохранена в файле {file_name}")
 
 
 # Функция для выполнения случайных действий
@@ -143,8 +163,16 @@ def perform_random_action():
 
         # Команды Git
         print("Выполняется команда git push...")
+
+        # Имя файла для коммита
+        commit_filename = "changes.txt"
+
+        # Создаем временный файл с изменениями
+        with open(commit_filename, "w") as commit_file:
+            commit_file.write("Изменения")
+
         os.system("git add .")
-        os.system("git commit -m 'Добавление изменений'")
+        os.system(f"git commit -m 'Добавление изменений в {commit_filename}'")
 
         # Проверяем наличие изменений перед отправкой
         git_status = os.popen("git status --porcelain").read()
@@ -155,22 +183,25 @@ def perform_random_action():
             print("Нет изменений для отправки на GitHub.")
         print(f"Следующее действие через {interval} минут")
 
-
-
     print("Все действия выполнены в течение 5 дней. Скрипт завершает работу.")
 
 
-# Функция для создания RockStar программы
-def create_rockstar_program():
-    print("Генерируется RockStar программа...")
-    # Генерируем случайное имя файла для RockStar программы
-    file_name = f"rockstar_program_{random.randint(1, 1000)}.rock"
-    # Создаем объект RockStar с заданным количеством строк (от 1 до 5)
-    rock_program = RockStar(days=random.randint(1, 5))
-    # Записываем программу в файл
-    with open(file_name, "w") as rock_file:
-        rock_file.write(rock_program.make_me_a_rockstar())
-    print(f"RockStar программа сохранена в файле {file_name}")
+# Создаем RockStar программу
+rock_program_code = """
+Midnight takes your heart and your soul
+While your heart is as high as your soul
+Put your heart without your soul into your heart
+"""
+
+print("Генерируется RockStar программа...")
+# Генерируем случайное имя файла для RockStar программы
+file_name = f"rockstar_program_{random.randint(1, 1000)}.rock"
+# Создаем или открываем файл для записи RockStar программы
+with open(file_name, "w") as rock_file:
+    rock_file.write(rock_program_code)
+
+print(f"RockStar программа сохранена в файле {file_name}")
+
 
 
 # Введите ваш логин GitHub
